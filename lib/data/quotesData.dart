@@ -1,3 +1,5 @@
+import 'database_creator.dart';
+
 List<Map<String, dynamic>> quotes = [
   {
     'author': 'Anonymous',
@@ -34,3 +36,22 @@ List<Map<String, dynamic>> quotes = [
     'category': 'Lost'
   },
 ];
+
+
+class Quote{
+  int id;
+  String quoteText;
+  String author;
+  int liked;
+  String category;
+
+  Quote(this.id,this.quoteText,this.author,this.liked,this.category);
+
+  Quote.fromJson(Map<String,dynamic> json){
+    this.id=json[Quotes.id];
+    this.quoteText=json[Quotes.quoteText];
+    this.author=json[Quotes.author];
+    this.liked=json[Quotes.liked];
+    this.category=json[Quotes.category];
+  }
+}
