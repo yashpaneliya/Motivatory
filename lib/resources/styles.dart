@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 TextStyle quoteStyle=TextStyle(
-  fontSize: 35.0,
+  fontSize: 5.0,
   color: Colors.white,
   letterSpacing: 1.0,
   fontWeight: FontWeight.bold
