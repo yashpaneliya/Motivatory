@@ -12,8 +12,8 @@ import 'package:flutter/services.dart';
 class quoteWidget extends StatefulWidget {
   final quote;
   final author;
-  final likedIndex;
-  const quoteWidget({Key key, this.quote, this.author, this.likedIndex})
+  // final likedIndex;
+  const quoteWidget({Key key, this.quote, this.author})
       : super(key: key);
 
   @override
@@ -46,7 +46,7 @@ class _quoteWidgetState extends State<quoteWidget> {
               Container(
                 margin: EdgeInsets.all(20.0),
                 child: Text(
-                  widget.quote,
+                  widget.quote.toString(),
                   style: quoteStyle,
                 ),
               ),
@@ -55,7 +55,7 @@ class _quoteWidgetState extends State<quoteWidget> {
                 alignment: Alignment.topRight,
                 margin: EdgeInsets.all(20.0),
                 child: Text(
-                  "- " + widget.author,
+                  "- " + widget.author.toString(),
                   style: authorStyle,
                 ),
               ),
@@ -67,18 +67,16 @@ class _quoteWidgetState extends State<quoteWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             IconButton(
-                icon: !quotes[widget.likedIndex]["liked"]
-                    ? Icon(Icons.favorite_border)
-                    : Icon(
+                icon:  Icon(
                         Icons.favorite,
                         color: Colors.red,
                       ),
                 onPressed: () {
                   setState(() {
-                    flag = !flag;
-                    quotes[widget.likedIndex]["liked"] = flag;
-                    print(quotes[widget.likedIndex]["author"]);
-                    print(quotes[widget.likedIndex]["liked"]);
+                    // flag = !flag;
+                    // quotes[widget.likedIndex]["liked"] = flag;
+                    // print(quotes[widget.likedIndex]["author"]);
+                    // print(quotes[widget.likedIndex]["liked"]);
                   });
                 }),
             IconButton(
