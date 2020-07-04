@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:motivatory/data/database_creator.dart';
 import 'package:motivatory/data/quotesData.dart';
 import 'package:motivatory/resources/styles.dart';
 import 'package:motivatory/widgets/quoteDisplayWidget.dart';
+
+import 'Homepage.dart';
 
 class QuoteOfParticularCategory extends StatefulWidget {
   final title;
@@ -19,10 +22,26 @@ class _QuoteOfParticularCategoryState extends State<QuoteOfParticularCategory> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    for (int i = 0; i < quotes.length; i++) {
-      if (quotes[i]["category"] == widget.title) {
-        quotesOfCategory.add(quotes[i]);
-      }
+    // for (int i = 0; i < quotes.length; i++) {
+    //   if (quotes[i]["category"] == widget.title) {
+    //     quotesOfCategory.add(quotes[i]);
+    //   }
+    // }
+    getQuoteOfCategory(widget.title);
+  }
+
+  //function to get quotes of a particular category
+  Future<List<Quote>> getQuoteOfCategory(String category) async {
+    final sql = '''SELECT * FROM ${Quotes.quoteTable} 
+    WHERE ${Quotes.category}==$category
+    ''';
+
+    final data = await db.rawQuery(sql);
+    List<Quote> quotesList = List();
+
+    for (final node in data) {
+      var temp = Quote.fromJson(node);
+      quotesList.add(temp);
     }
   }
 
@@ -55,7 +74,7 @@ class _QuoteOfParticularCategoryState extends State<QuoteOfParticularCategory> {
                 return quoteWidget(
                   quote: quotesOfCategory[index]["quote"],
                   author: quotesOfCategory[index]["author"],
-                  likedIndex: index,
+                  // likedIndex: index,
                 );
               },
             ),
