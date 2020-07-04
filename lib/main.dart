@@ -3,10 +3,9 @@ import 'package:motivatory/resources/colors.dart';
 
 import 'Screens/Homepage.dart';
 
-bool dark=true;
+bool dark = true;
 
-void main()
-{
+void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'Motivatory',
@@ -14,8 +13,8 @@ void main()
       backgroundColor: background,
       // colorScheme: ColorScheme(primary: background, primaryVariant: Colors.black, secondary: Colors.white, secondaryVariant: Colors.white, surface: catcolor, background: background, error: red, onPrimary: null, onSecondary: null, onSurface: null, onBackground: null, onError: null, brightness: Brightness.dark),
       fontFamily: 'R',
-      primarySwatch: MaterialColor(1, {1:background,2:Colors.white}),
-      brightness: dark?Brightness.dark:Brightness.light,
+      primarySwatch: MaterialColor(1, {1: background, 2: Colors.white}),
+      brightness: dark ? Brightness.dark : Brightness.light,
     ),
     home: Homepage(),
   ));
