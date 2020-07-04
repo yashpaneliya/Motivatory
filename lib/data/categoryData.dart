@@ -4,22 +4,22 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 List<Map<String,dynamic>> categories = [
   {
     'icon':Icons.insert_emoticon,
-    'title':"Happy"
+    'title':"Acceptance"
   },
   {
     'icon':Icons.thumb_up,
-    'title':"Motivation"
+    'title':"Ability"
   },
   {
     'icon':MdiIcons.crown,
-    'title':"Attitude"
+    'title':"Advice"
   },
   {
     'icon':MdiIcons.arrowTopRightThick,
-    'title':"Ambition"
+    'title':"Age"
   },
   {
     'icon':Icons.sentiment_dissatisfied,
-    'title':"Lost"
+    'title':"Ambition"
   },
 ];
