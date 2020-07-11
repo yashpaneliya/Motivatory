@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:motivatory/data/database_creator.dart';
 import 'package:motivatory/data/quotesData.dart';
-import 'package:motivatory/resources/styles.dart';
 import 'package:motivatory/widgets/quoteDisplayWidget.dart';
 
 import 'Homepage.dart';
@@ -16,33 +15,27 @@ class QuoteOfParticularCategory extends StatefulWidget {
 }
 
 class _QuoteOfParticularCategoryState extends State<QuoteOfParticularCategory> {
-  List<Map<String, dynamic>> quotesOfCategory = [];
+  List<Quote> quotesOfCategory = [];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // for (int i = 0; i < quotes.length; i++) {
-    //   if (quotes[i]["category"] == widget.title) {
-    //     quotesOfCategory.add(quotes[i]);
-    //   }
-    // }
-    getQuoteOfCategory(widget.title);
   }
 
   //function to get quotes of a particular category
   Future<List<Quote>> getQuoteOfCategory(String category) async {
     final sql = '''SELECT * FROM ${Quotes.quoteTable} 
-    WHERE ${Quotes.category}==$category
+    WHERE Category=="$category"
     ''';
 
     final data = await db.rawQuery(sql);
-    List<Quote> quotesList = List();
 
     for (final node in data) {
       var temp = Quote.fromJson(node);
-      quotesList.add(temp);
+      quotesOfCategory.add(temp);
+      // print(temp.author);
     }
+    return quotesOfCategory;
   }
 
   @override
@@ -50,6 +43,10 @@ class _QuoteOfParticularCategoryState extends State<QuoteOfParticularCategory> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
+        title: Text(
+          widget.title,
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
         leading: IconButton(
@@ -59,25 +56,25 @@ class _QuoteOfParticularCategoryState extends State<QuoteOfParticularCategory> {
           },
         ),
       ),
-      body: quotesOfCategory.length == 0
-          ? Center(
-              child: Text(
-                'No quote available!!!',
-                style: quoteStyle,
-              ),
-            )
-          : PageView.builder(
-              pageSnapping: true,
+      body: FutureBuilder(
+          future: getQuoteOfCategory(widget.title),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator(
+                backgroundColor: Colors.black,
+                valueColor: AlwaysStoppedAnimation(Colors.white),
+              );
+            }
+            return PageView.builder(
               scrollDirection: Axis.vertical,
-              itemCount: quotesOfCategory.length,
               itemBuilder: (context, index) {
                 return quoteWidget(
-                  quote: quotesOfCategory[index]["quote"],
-                  author: quotesOfCategory[index]["author"],
-                  // likedIndex: index,
+                  quote: snapshot.data[index].quoteText,
+                  author: snapshot.data[index].author,
                 );
               },
-            ),
+            );
+          }),
     );
   }
 }

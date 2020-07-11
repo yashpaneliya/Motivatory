@@ -35,7 +35,7 @@ class _HomepageState extends State<Homepage> {
         data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
     await new File(path).writeAsBytes(bytes);
     db = await openDatabase(path);
-    getAllQuotes();
+    return getAllQuotes();
   }
 
   getAllQuotes() async {
@@ -48,6 +48,7 @@ class _HomepageState extends State<Homepage> {
       // print(temp.author);
       quotesList.add(temp);
     }
+    return quotesList;
   }
 
   @override
@@ -55,22 +56,32 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
+        title: Text('Motivatory',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
-        // leading: Icon(Icons.arrow_forward_ios),
       ),
-      body: PageView.builder(
-        pageSnapping: true,
-        scrollDirection: Axis.vertical,
-        itemCount: quotesList.length,
-        itemBuilder: (context, index) {
-          return quoteWidget(
-            quote: quotesList[index].quoteText,
-            author: quotesList[index].author,
-            // likedIndex: index,
-          );
-        },
-      ),
+      body: FutureBuilder(
+          future: loadDatabase(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                  valueColor: AlwaysStoppedAnimation(Colors.black),
+                ),
+              );
+            }
+            return PageView.builder(
+              pageSnapping: false,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) {
+                return quoteWidget(
+                  quote: snapshot.data[index].quoteText,
+                  author: snapshot.data[index].author,
+                );
+              },
+            );
+          }),
       drawer: Drawer(
         child: SafeArea(
           child: Container(
