@@ -22,6 +22,6 @@ TextStyle menuStyle=TextStyle(
 
 TextStyle catTitleStyle=TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 20.0,
+  fontSize: 15.0,
   letterSpacing: 1.0
 );

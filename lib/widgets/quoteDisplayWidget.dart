@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
-import 'dart:async';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:motivatory/data/quotesData.dart';
 import 'package:motivatory/resources/styles.dart';
 import 'package:flutter/services.dart';
 
@@ -40,7 +38,7 @@ class _quoteWidgetState extends State<quoteWidget> {
                 child: Icon(
                   Icons.format_quote,
                   color: Colors.white,
-                  size: 100.0,
+                  size: 95.0,
                 ),
               ),
               Container(

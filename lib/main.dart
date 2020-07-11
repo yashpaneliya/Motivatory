@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:motivatory/resources/colors.dart';
-
 import 'Screens/Homepage.dart';
 
 bool dark = true;
