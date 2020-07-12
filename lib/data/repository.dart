@@ -1,66 +1,43 @@
-// import 'package:motivatory/data/database_creator.dart';
-// import 'package:motivatory/data/quotesData.dart';
+import 'package:motivatory/data/likeModel.dart';
+import 'localLikeSQL.dart';
 
+Future<List<LikedQuote>> getAllLikeQuotes() async {
+  final sql = '''SELECT * FROM ${Databasecreator.liketable}''';
+  final data = await likedb.rawQuery(sql);
+  List<LikedQuote> quotesList = List();
 
+  for (final node in data) {
+    var temp = LikedQuote.fromJson(node);
+    quotesList.add(temp);
+  }
 
-//   //function to get all quotes
-//   Future<List<Quote>> getAllQuotes()async{
-//     final sql='''SELECT * FROM ${Quotes.quoteTable}''';
-//     final data=await db.rawQuery(sql);
-//     List<Quote> quotesList=List();
+  return quotesList;
+}
 
-//     for(final node in data){
-//       var temp=Quote.fromJson(node);
-//       quotesList.add(temp);
-//     }
+Future<void> likeQuote(LikedQuote lq) async {
+  final sql = '''INSERT INTO ${Databasecreator.liketable}
+  (
+    ${Databasecreator.id},
+    ${Databasecreator.quoteText},
+    ${Databasecreator.author},
+    ${Databasecreator.category}
+  )
+  VALUES
+  (
+    ${lq.id},
+    "${lq.quoteText}",
+    "${lq.author}",
+    "${lq.category}"
+  )
+  ''';
 
-//     return quotesList;
-//   }
+  final res = await likedb.rawInsert(sql);
+  Databasecreator.databaselog('Add quote', sql, null, res);
+}
 
-
-
-//     return quotesList;
-//   }
-
-//   //function to get quotes of an author
-//   Future<List<Quote>> getQuoteOfAuthor(String author)async{
-    
-//     final sql='''SELECT * FROM ${Quotes.quoteTable} 
-//     WHERE ${Quotes.author}==$author
-//     ''';
-
-//     final data = await db.rawQuery(sql);
-//     List<Quote> quotesList=List();
-
-//     for(final node in data){
-//       var temp=Quote.fromJson(node);
-//       quotesList.add(temp);
-//     }
-
-//     return quotesList;
-//   }
-
-//   //function to get quotes of an author
-//   Future<List<dynamic>> getAllCategories()async{
-    
-//     final sql='''SELECT category FROM ${Quotes.quoteTable}''';
-
-//     final data = await db.rawQuery(sql);
-//     List<dynamic> catList=List();
-
-//     for(final node in data){
-//       var temp=node.toString();
-//       catList.add(temp);
-//     }
-
-//     return catList;
-//   }
-
-//   //update a quotes as a liked quote
-//   Future<void> likeQuote(String id)async{
-
-//     final sql=''' UPDATE ${Quotes.quoteTable}
-//     SET ${Quotes.liked}=1
-//     WHERE ${Quotes.id}=$id
-//     ''';
-//   }  
+Future<void> deleteLikedQuote(LikedQuote lq) async {
+  final sql =
+      '''DELETE FROM ${Databasecreator.liketable} WHERE ${Databasecreator.id}=${lq.id}''';
+  final res = await likedb.rawDelete(sql);
+  Databasecreator.databaselog('Delete quote', sql, null, res);
+}
