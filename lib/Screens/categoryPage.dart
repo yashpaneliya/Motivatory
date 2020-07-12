@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:motivatory/data/categoryData.dart';
 import 'package:motivatory/data/database_creator.dart';
-import 'package:motivatory/data/quotesData.dart';
 import 'package:motivatory/widgets/categoryCard.dart';
-import 'package:sqflite/sqlite_api.dart';
 
 import 'Homepage.dart';
 
-List<dynamic> categoryList = [];
-// Database db;
+List<CategoryModel> categoryList = [];
 
 class CategoryPage extends StatefulWidget {
   @override
@@ -18,28 +15,35 @@ class CategoryPage extends StatefulWidget {
 class _CategoryPageState extends State<CategoryPage> {
   getAllCategories() async {
     categoryList = [];
-    final sql = '''SELECT DISTINCT ${Quotes.category} FROM ${Quotes.quoteTable}''';
+    final sql =
+        '''SELECT DISTINCT ${Quotes.category} FROM ${Quotes.quoteTable}''';
     final data = await db.rawQuery(sql);
-    print(data);
     for (final node in data) {
-      var temp = node["${Quotes.category}"];
+      var temp = CategoryModel.fromJson(node);
       categoryList.add(temp);
     }
-    print(categoryList.length);
     return categoryList;
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    getAllCategories();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                showSearch(context: context, delegate: CatSearch(categoryList));
+              })
+        ],
         leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -58,17 +62,118 @@ class _CategoryPageState extends State<CategoryPage> {
               );
             }
             return GridView.builder(
-              // itemCount: 2,
               gridDelegate:
                   SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (context, index) {
                 return CategoryCard(
                   icon: Icons.sentiment_satisfied,
-                  categoryTitle: categoryList[index],
+                  categoryTitle: categoryList[index].categoryTitle,
                 );
               },
             );
           }),
+    );
+  }
+}
+
+class CatSearch extends SearchDelegate<CategoryModel> {
+  final List<CategoryModel> categories;
+
+  CatSearch(this.categories)
+      : super(
+          searchFieldLabel: "Search Category",
+          searchFieldStyle: TextStyle(color: Colors.black),
+        );
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    // TODO: implement appBarTheme
+    return super.appBarTheme(context).copyWith(
+          // ignore: deprecated_member_use
+          textTheme: TextTheme(
+              title:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        );
+  }
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: () {
+            query = '';
+          })
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          close(context, null);
+        });
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    final results = categories.where((element) => element.categoryTitle
+        .toString()
+        .toLowerCase()
+        .contains(query.toLowerCase())).toList();
+    if (results.length == 0) {
+      return Center(
+        child: Text(
+          'Category not available!!!',
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+              letterSpacing: 1.0,
+              fontWeight: FontWeight.bold),
+        ),
+      );
+    }
+    return GridView.builder(
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+      itemBuilder: (context, index) {
+        return CategoryCard(
+          icon: Icons.sentiment_satisfied,
+          categoryTitle: results[index].categoryTitle,
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final results = categories.where((element) => element.categoryTitle
+        .toString()
+        .toLowerCase()
+        .contains(query.toLowerCase())).toList();
+    if (results.length == 0) {
+      return Center(
+        child: Text(
+          'Category not available!!!',
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+              letterSpacing: 1.0,
+              fontWeight: FontWeight.bold),
+        ),
+      );
+    }
+    return GridView.builder(
+      itemCount: results.length,
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+      itemBuilder: (context, index) {
+        return CategoryCard(
+          icon: Icons.sentiment_satisfied,
+          categoryTitle: results[index].categoryTitle,
+        );
+      },
     );
   }
 }

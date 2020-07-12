@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:motivatory/Screens/authorPage.dart';
 import 'package:motivatory/Screens/categoryPage.dart';
 import 'package:motivatory/data/quotesData.dart';
 import 'package:motivatory/resources/styles.dart';
@@ -56,7 +58,10 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('Motivatory',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+        title: Text(
+          'Motivatory',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
       ),
@@ -75,9 +80,11 @@ class _HomepageState extends State<Homepage> {
               pageSnapping: false,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
+                Random rand = Random();
+                var temp=rand.nextInt(snapshot.data.length);
                 return quoteWidget(
-                  quote: snapshot.data[index].quoteText,
-                  author: snapshot.data[index].author,
+                  quote: snapshot.data[temp].quoteText,
+                  author: snapshot.data[temp].author,
                 );
               },
             );
@@ -120,7 +127,9 @@ class _HomepageState extends State<Homepage> {
                     'Authors',
                     style: menuStyle,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AuthorList()));
+                  },
                 ),
                 ListTile(
                   leading: Icon(
