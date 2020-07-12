@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
+import 'package:motivatory/Screens/likedQuotes.dart';
 import 'package:motivatory/data/likeModel.dart';
-import 'package:motivatory/data/quotesData.dart';
 import 'package:motivatory/data/repository.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
@@ -10,16 +10,16 @@ import 'package:flutter/rendering.dart';
 import 'package:motivatory/resources/styles.dart';
 import 'package:flutter/services.dart';
 
-class quoteWidget extends StatefulWidget {
-  final quote;
+class likedQuoteWidget extends StatefulWidget {
+  final LikedQuote quote;
 
-  const quoteWidget({Key key, this.quote}) : super(key: key);
+  const likedQuoteWidget({Key key, this.quote}) : super(key: key);
 
   @override
-  _quoteWidgetState createState() => _quoteWidgetState();
+  _likedQuoteWidgetState createState() => _likedQuoteWidgetState();
 }
 
-class _quoteWidgetState extends State<quoteWidget> {
+class _likedQuoteWidgetState extends State<likedQuoteWidget> {
   bool flag = false;
   var ss = new GlobalKey();
   @override
@@ -71,11 +71,17 @@ class _quoteWidgetState extends State<quoteWidget> {
                   color: Colors.red,
                 ),
                 onPressed: () {
-                  LikedQuote lq=LikedQuote(widget.quote.id, widget.quote.quoteText, widget.quote.author,  widget.quote.category);
-                  likeQuote(lq).then((value) {
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text("Liked"),duration: Duration(seconds: 1)));
+                  deleteLikedQuote(widget.quote).then((value) {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text("Unliked"),
+                      duration: Duration(seconds: 1),
+                    ));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LikedQuotesPage()));
                   });
+                    
                 }),
             IconButton(
                 icon: Icon(Icons.content_copy),
@@ -85,7 +91,7 @@ class _quoteWidgetState extends State<quoteWidget> {
                               " \" ${widget.quote.quoteText.toString()} \" \n \t\t - ${widget.quote.author.toString()}"))
                       .then((value) {
                     Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text("Quote copied to clipboard"),duration: Duration(seconds: 1)));
+                        SnackBar(content: Text("Quote copied to clipboard")));
                   });
                 }),
             IconButton(
