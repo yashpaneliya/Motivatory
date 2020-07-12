@@ -9,6 +9,9 @@ void main() {
     debugShowCheckedModeBanner: false,
     title: 'Motivatory',
     theme: ThemeData(
+      appBarTheme: AppBarTheme(
+        elevation: 0.0
+      ),
       backgroundColor: background,
       // colorScheme: ColorScheme(primary: background, primaryVariant: Colors.black, secondary: Colors.white, secondaryVariant: Colors.white, surface: catcolor, background: background, error: red, onPrimary: null, onSecondary: null, onSurface: null, onBackground: null, onError: null, brightness: Brightness.dark),
       fontFamily: 'R',
