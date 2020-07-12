@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:motivatory/resources/colors.dart';
 import 'Screens/Homepage.dart';
+import 'data/localLikeSQL.dart';
 
 bool dark = true;
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Databasecreator().initDatabase();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'Motivatory',
