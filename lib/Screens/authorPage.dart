@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:motivatory/data/authorData.dart';
-import 'package:motivatory/data/database_creator.dart';
+import 'package:motivatory/data/quotesModel.dart';
 import 'package:motivatory/resources/colors.dart';
 import 'package:motivatory/widgets/authorCard.dart';
 import 'package:path/path.dart';

@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:motivatory/Screens/authorPage.dart';
 import 'package:motivatory/Screens/categoryPage.dart';
+import 'package:motivatory/Screens/likedQuotes.dart';
 import 'package:motivatory/data/quotesData.dart';
 import 'package:motivatory/resources/styles.dart';
-import 'package:motivatory/data/database_creator.dart';
+import 'package:motivatory/data/quotesModel.dart';
 import 'package:motivatory/widgets/quoteDisplayWidget.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -76,6 +77,18 @@ class _HomepageState extends State<Homepage> {
                 ),
               );
             }
+            if(snapshot.data==null){
+              return Center(
+                child: Text(
+                  'Something went wrong!! \nPlease restart the app!!',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      letterSpacing: 1.0,
+                      fontWeight: FontWeight.bold),
+                ),
+              );
+            }
             return PageView.builder(
               pageSnapping: false,
               scrollDirection: Axis.vertical,
@@ -83,8 +96,7 @@ class _HomepageState extends State<Homepage> {
                 Random rand = Random();
                 var temp=rand.nextInt(snapshot.data.length);
                 return quoteWidget(
-                  quote: snapshot.data[temp].quoteText,
-                  author: snapshot.data[temp].author,
+                  quote: snapshot.data[temp],
                 );
               },
             );
@@ -116,7 +128,9 @@ class _HomepageState extends State<Homepage> {
                     'Liked Quotes',
                     style: menuStyle,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LikedQuotesPage()));
+                  },
                 ),
                 ListTile(
                   leading: Icon(

@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:motivatory/data/database_creator.dart';
+import 'package:motivatory/data/quotesModel.dart';
 import 'package:motivatory/data/quotesData.dart';
 import 'package:motivatory/resources/colors.dart';
 import 'package:motivatory/widgets/quoteDisplayWidget.dart';
@@ -69,8 +69,7 @@ class _QuotesOfAuthorState extends State<QuotesOfAuthor> {
                 Random rand = Random();
                 var temp=rand.nextInt(snapshot.data.length);
                 return quoteWidget(
-                  quote: snapshot.data[temp].quoteText,
-                  author: snapshot.data[temp].author,
+                  quote: snapshot.data[temp]
                 );
               },
             ); 

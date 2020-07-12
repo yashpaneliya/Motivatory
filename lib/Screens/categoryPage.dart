@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:motivatory/data/categoryData.dart';
-import 'package:motivatory/data/database_creator.dart';
+import 'package:motivatory/data/quotesModel.dart';
 import 'package:motivatory/widgets/categoryCard.dart';
 
 import 'Homepage.dart';
@@ -34,6 +34,10 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          "Categories",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         actions: [
           IconButton(
               icon: Icon(
