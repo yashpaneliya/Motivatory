@@ -40,10 +40,10 @@ class _CategoryCardState extends State<CategoryCard> {
           children: [
             Container(
               alignment: Alignment.topLeft,
-              padding: EdgeInsets.only(left: 10.0),
-              child: Icon(
-                widget.icon,
-                size: 50.0,
+              padding: EdgeInsets.only(left: 20.0),
+              child: Text(
+                widget.categoryTitle.toString().substring(0,1),
+                style: TextStyle(fontSize: 50.0,fontWeight: FontWeight.bold),
               ),
             ),
             Container(
