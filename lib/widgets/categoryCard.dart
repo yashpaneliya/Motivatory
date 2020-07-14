@@ -1,15 +1,13 @@
 import 'dart:math';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:motivatory/Screens/quotesOfCategory.dart';
 import 'package:motivatory/resources/colors.dart';
-import 'package:motivatory/resources/styles.dart';
 
 class CategoryCard extends StatefulWidget {
-  final icon;
+
   final categoryTitle;
 
-  const CategoryCard({Key key, this.icon, this.categoryTitle})
+  const CategoryCard({Key key, this.categoryTitle})
       : super(key: key);
 
   @override
@@ -24,38 +22,26 @@ class _CategoryCardState extends State<CategoryCard> {
         Navigator.push(context, MaterialPageRoute(builder: (context)=>QuoteOfParticularCategory(title:widget.categoryTitle)));
       },
       child: Container(
-        margin: EdgeInsets.all(30.0),
+        alignment: Alignment.center,
+        margin: EdgeInsets.all(20.0),
         decoration: BoxDecoration(
             color: catcolor,
             boxShadow: [
               BoxShadow(
-                  color: catTabBackColors.elementAt(Random().nextInt(7)),
-                  offset: Offset(-5, 0))
+                  color: Colors.black,
+                  offset: Offset(1, 0),blurRadius: 10.0)
             ],
             border: Border.all(color: catcolor, width: 5.0),
-            borderRadius: BorderRadius.circular(10.0)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              alignment: Alignment.topLeft,
-              padding: EdgeInsets.only(left: 20.0),
-              child: Text(
-                widget.categoryTitle.toString().substring(0,1),
-                style: TextStyle(fontSize: 50.0,fontWeight: FontWeight.bold),
-              ),
-            ),
-            Container(
+            borderRadius: BorderRadius.circular(5.0)),
+        child: Container(
+              margin: EdgeInsets.only(top:25.0,bottom: 25.0),
               padding: EdgeInsets.only(right: 10.0),
-              alignment: Alignment.bottomRight,
+              alignment: Alignment.center,
               child: Text(
                 widget.categoryTitle,
-                style: catTitleStyle,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0, letterSpacing: 1.0,color: catTabBackColors[Random().nextInt(10)]),
               ),
-            )
-          ],
-        ),
+            ),
       ),
     );
   }

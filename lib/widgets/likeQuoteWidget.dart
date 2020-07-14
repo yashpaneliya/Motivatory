@@ -67,7 +67,7 @@ class _likedQuoteWidgetState extends State<likedQuoteWidget> {
           children: [
             IconButton(
                 icon: Icon(
-                  Icons.favorite_border,
+                  Icons.favorite,
                   color: Colors.red,
                 ),
                 onPressed: () {
