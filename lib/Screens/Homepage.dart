@@ -90,7 +90,7 @@ class _HomepageState extends State<Homepage> {
               );
             }
             return PageView.builder(
-              pageSnapping: false,
+              pageSnapping: true,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
                 Random rand = Random();

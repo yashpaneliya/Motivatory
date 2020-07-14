@@ -14,8 +14,9 @@ Future<List<LikedQuote>> getAllLikeQuotes() async {
   return quotesList;
 }
 
-Future<void> likeQuote(LikedQuote lq) async {
-  final sql = '''INSERT INTO ${Databasecreator.liketable}
+Future<String> likeQuote(LikedQuote lq) async {
+  try {
+    final sql = '''INSERT INTO ${Databasecreator.liketable}
   (
     ${Databasecreator.id},
     ${Databasecreator.quoteText},
@@ -31,8 +32,13 @@ Future<void> likeQuote(LikedQuote lq) async {
   )
   ''';
 
-  final res = await likedb.rawInsert(sql);
-  Databasecreator.databaselog('Add quote', sql, null, res);
+    final res = await likedb.rawInsert(sql);
+
+    Databasecreator.databaselog('Add quote', sql, null, res);
+    return 'done';
+  } catch (e) {
+    return 'exception';
+  }
 }
 
 Future<void> deleteLikedQuote(LikedQuote lq) async {

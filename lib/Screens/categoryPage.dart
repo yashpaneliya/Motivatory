@@ -65,12 +65,9 @@ class _CategoryPageState extends State<CategoryPage> {
                 ),
               );
             }
-            return GridView.builder(
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            return ListView.builder(
               itemBuilder: (context, index) {
                 return CategoryCard(
-                  icon: Icons.sentiment_satisfied,
                   categoryTitle: categoryList[index].categoryTitle,
                 );
               },
@@ -138,12 +135,9 @@ class CatSearch extends SearchDelegate<CategoryModel> {
         ),
       );
     }
-    return GridView.builder(
-      gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+    return ListView.builder(
       itemBuilder: (context, index) {
         return CategoryCard(
-          icon: Icons.sentiment_satisfied,
           categoryTitle: results[index].categoryTitle,
         );
       },
@@ -168,13 +162,11 @@ class CatSearch extends SearchDelegate<CategoryModel> {
         ),
       );
     }
-    return GridView.builder(
+    return ListView.builder(
       itemCount: results.length,
-      gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+      
       itemBuilder: (context, index) {
         return CategoryCard(
-          icon: Icons.sentiment_satisfied,
           categoryTitle: results[index].categoryTitle,
         );
       },
