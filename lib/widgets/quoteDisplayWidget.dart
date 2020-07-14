@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
-import 'dart:ui';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:motivatory/data/likeModel.dart';
 import 'package:motivatory/data/repository.dart';
 import 'package:path_provider/path_provider.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:motivatory/resources/styles.dart';
 import 'package:flutter/services.dart';
-import 'package:share/share.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 
 class quoteWidget extends StatefulWidget {
   final quote;
@@ -67,7 +68,7 @@ class _quoteWidgetState extends State<quoteWidget> {
           children: [
             IconButton(
                 icon: Icon(
-                  flag?Icons.favorite:Icons.favorite_border,
+                  flag ? Icons.favorite : Icons.favorite_border,
                   color: Colors.red,
                 ),
                 onPressed: () async {
@@ -116,14 +117,9 @@ class _quoteWidgetState extends State<quoteWidget> {
   shareScreenShotOfQuote() async {
     RenderRepaintBoundary renderRepaintBoundary =
         ss.currentContext.findRenderObject();
-    var image = await renderRepaintBoundary.toImage();
-    final directory = (await getApplicationDocumentsDirectory()).path;
-    print(directory);
-    var byteData = await image.toByteData(format: ImageByteFormat.png);
-    var pngBytesData = byteData.buffer.asUint8List();
-    File imgFile = new File('$directory/quote.png');
-    imgFile.writeAsBytes(pngBytesData);
-    final RenderBox box = context.findRenderObject();
-    print(pngBytesData);
+    ui.Image image = await renderRepaintBoundary.toImage(pixelRatio: 3.0);
+    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    Uint8List pngBytesData = byteData.buffer.asUint8List();
+    await Share.file("Share Quote using", "quote.png", pngBytesData, 'image/png',text: "Shared from Motivatory!!!");
   }
 }

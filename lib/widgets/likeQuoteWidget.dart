@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:motivatory/Screens/likedQuotes.dart';
 import 'package:motivatory/data/likeModel.dart';
 import 'package:motivatory/data/repository.dart';
@@ -109,16 +110,8 @@ class _likedQuoteWidgetState extends State<likedQuoteWidget> {
     RenderRepaintBoundary renderRepaintBoundary =
         ss.currentContext.findRenderObject();
     var image = await renderRepaintBoundary.toImage();
-    final directory = (await getApplicationDocumentsDirectory()).path;
-    print(directory);
     var byteData = await image.toByteData(format: ImageByteFormat.png);
     var pngBytesData = byteData.buffer.asUint8List();
-    File imgFile = new File('$directory/quote.png');
-    imgFile.writeAsBytes(pngBytesData);
-    // final RenderBox box = context.findRenderObject();
-    // Share.file(path: '$directory/quote.png',mimeType: ShareType.TYPE_FILE,title: 'Quote').share(sharePositionOrigin:
-    //                                  box.localToGlobal(Offset.zero) &
-    //                                      box.size);
-    print(pngBytesData);
+    await Share.file("Share Quote using", "quote.png", pngBytesData, 'image/png',text: "Shared from Motivatory!!!");
   }
 }
