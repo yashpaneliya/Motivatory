@@ -13,5 +13,8 @@ List<Color> catTabBackColors=[
   Colors.cyan,
   Color.fromRGBO(0, 252, 183, 1),
   Color.fromRGBO(252, 0, 227, 1),
-  Colors.green
+  Colors.white,
+  Color.fromRGBO(0, 200, 1, 1),
+  Color.fromRGBO(200, 10, 100, 1),
+  Color.fromRGBO(100, 100, 200, 1)
 ];

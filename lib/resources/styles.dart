@@ -16,9 +16,6 @@ TextStyle authorStyle = TextStyle(
 TextStyle menuStyle =
     TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.0);
 
-TextStyle catTitleStyle =
-    TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, letterSpacing: 1.0);
-
 TextStyle authStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 20.0,
