@@ -39,7 +39,7 @@ class _likedQuoteWidgetState extends State<likedQuoteWidget> {
                 angle: pi,
                 child: Icon(
                   Icons.format_quote,
-                  color: Colors.white,
+//                  color: Colors.white,
                   size: 95.0,
                 ),
               ),

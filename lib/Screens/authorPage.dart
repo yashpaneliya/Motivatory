@@ -45,11 +45,11 @@ class _AuthorListState extends State<AuthorList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: background,
+//      backgroundColor: background,
       appBar: AppBar(
         title: Text(
           'Authors',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+//          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
@@ -60,7 +60,7 @@ class _AuthorListState extends State<AuthorList> {
           IconButton(
             icon: Icon(
               Icons.search,
-              color: Colors.white,
+//              color: Colors.white,
             ),
             onPressed: () {
               showSearch(
@@ -106,7 +106,7 @@ class AuthorSearch extends SearchDelegate<Author> {
     // TODO: implement appBarTheme
     return super.appBarTheme(context).copyWith(
       // ignore: deprecated_member_use
-      textTheme: TextTheme(title: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+//      textTheme: TextTheme(title: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
     );
   }
 
@@ -142,7 +142,7 @@ class AuthorSearch extends SearchDelegate<Author> {
         child: Text(
           'Author not available!!!',
           style: TextStyle(
-              color: Colors.white,
+//              color: Colors.white,
               fontSize: 20.0,
               letterSpacing: 1.0,
               fontWeight: FontWeight.bold),
