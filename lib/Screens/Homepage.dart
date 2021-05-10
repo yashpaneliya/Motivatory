@@ -57,7 +57,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           'Motivatory',
@@ -77,7 +77,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               );
             }
-            if(snapshot.data==null){
+            if (snapshot.data == null) {
               return Center(
                 child: Text(
                   'Something went wrong!! \nPlease restart the app!!',
@@ -94,7 +94,7 @@ class _HomepageState extends State<Homepage> {
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
                 Random rand = Random();
-                var temp=rand.nextInt(snapshot.data.length);
+                var temp = rand.nextInt(snapshot.data.length);
                 return quoteWidget(
                   quote: snapshot.data[temp],
                 );
@@ -129,7 +129,10 @@ class _HomepageState extends State<Homepage> {
                     style: menuStyle,
                   ),
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LikedQuotesPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LikedQuotesPage()));
                   },
                 ),
                 ListTile(
@@ -142,7 +145,8 @@ class _HomepageState extends State<Homepage> {
                     style: menuStyle,
                   ),
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AuthorList()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AuthorList()));
                   },
                 ),
                 ListTile(
@@ -160,17 +164,6 @@ class _HomepageState extends State<Homepage> {
                         MaterialPageRoute(
                             builder: (context) => CategoryPage()));
                   },
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.developer_mode,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    'Developers',
-                    style: menuStyle,
-                  ),
-                  onTap: () {},
                 ),
               ],
             ),

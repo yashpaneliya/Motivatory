@@ -31,35 +31,38 @@ class _quoteWidgetState extends State<quoteWidget> {
       children: [
         RepaintBoundary(
           key: ss,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Transform.rotate(
-                angle: pi,
-                child: Icon(
-                  Icons.format_quote,
-                  color: Colors.white,
-                  size: 95.0,
+          child: Container(
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Transform.rotate(
+                  angle: pi,
+                  child: Icon(
+                    Icons.format_quote,
+                    color: Colors.white,
+                    size: 95.0,
+                  ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.all(20.0),
-                child: Text(
-                  widget.quote.quoteText.toString(),
-                  style: quoteStyle,
+                Container(
+                  margin: EdgeInsets.all(20.0),
+                  child: Text(
+                    widget.quote.quoteText.toString(),
+                    style: quoteStyle,
+                  ),
                 ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.85,
-                alignment: Alignment.topRight,
-                margin: EdgeInsets.all(20.0),
-                child: Text(
-                  "- " + widget.quote.author.toString(),
-                  style: authorStyle,
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  alignment: Alignment.topRight,
+                  margin: EdgeInsets.all(20.0),
+                  child: Text(
+                    "- " + widget.quote.author.toString(),
+                    style: authorStyle,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         Row(
