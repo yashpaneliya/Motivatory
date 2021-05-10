@@ -16,14 +16,14 @@ class _LikedQuotesPageState extends State<LikedQuotesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: background,
+//      backgroundColor: background,
       appBar: AppBar(
         title: Text(
           "Liked Quotes",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+//          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         elevation: 0.0,
-        backgroundColor: Theme.of(context).backgroundColor,
+//        backgroundColor: Theme.of(context).backgroundColor,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -47,7 +47,7 @@ class _LikedQuotesPageState extends State<LikedQuotesPage> {
                 child: Text(
                   'You haven\'t liked any quote!!!',
                   style: TextStyle(
-                      color: Colors.white,
+//                      color: Colors.white,
                       fontSize: 20.0,
                       letterSpacing: 1.0,
                       fontWeight: FontWeight.bold),

@@ -43,14 +43,14 @@ class _QuoteOfParticularCategoryState extends State<QuoteOfParticularCategory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
           widget.title,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+//          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         elevation: 0.0,
-        backgroundColor: Theme.of(context).backgroundColor,
+//        backgroundColor: Theme.of(context).backgroundColor,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {

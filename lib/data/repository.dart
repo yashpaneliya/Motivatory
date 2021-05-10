@@ -33,6 +33,8 @@ Future<String> likeQuote(LikedQuote lq) async {
   ''';
 
     final res = await likedb.rawInsert(sql);
+    print("Thi is Res");
+    print(res);
 
     Databasecreator.databaselog('Add quote', sql, null, res);
     return 'done';
@@ -46,4 +48,14 @@ Future<void> deleteLikedQuote(LikedQuote lq) async {
       '''DELETE FROM ${Databasecreator.liketable} WHERE ${Databasecreator.id}=${lq.id}''';
   final res = await likedb.rawDelete(sql);
   Databasecreator.databaselog('Delete quote', sql, null, res);
+}
+
+checkAleradyLikdedOrNot(id) async {
+  final sql =
+      '''SELECT * FROM ${Databasecreator.liketable} WHERE ${Databasecreator.id}=${id}''';
+  final res = await likedb.rawQuery(sql);
+  print("Checking");
+  print(res);
+  print(res.length);
+  return res.length;
 }

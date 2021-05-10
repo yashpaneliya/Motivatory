@@ -36,13 +36,13 @@ class _CategoryPageState extends State<CategoryPage> {
       appBar: AppBar(
         title: Text(
           "Categories",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+//          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
               icon: Icon(
                 Icons.search,
-                color: Colors.white,
+
               ),
               onPressed: () {
                 showSearch(context: context, delegate: CatSearch(categoryList));
@@ -155,7 +155,7 @@ class CatSearch extends SearchDelegate<CategoryModel> {
         child: Text(
           'Category not available!!!',
           style: TextStyle(
-              color: Colors.white,
+//              color: Colors.white,
               fontSize: 20.0,
               letterSpacing: 1.0,
               fontWeight: FontWeight.bold),
